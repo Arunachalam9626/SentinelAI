@@ -1,0 +1,145 @@
+@model SentinelAI.Models.Complaint
+@{
+    ViewData["Title"] = "Report Incident";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fa-solid fa-triangle-exclamation me-2 text-warning"></i>Report Cyber Incident</h1>
+        <p>Submit your incident for AI-powered threat analysis and classification</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="form-card fade-in-up">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="stat-card-icon" style="background: rgba(26,58,107,0.1);">
+                        <i class="fa-solid fa-robot fa-lg text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 text-navy">AI-Powered Analysis</h4>
+                        <small class="text-muted">Your incident will be automatically classified by Gemini AI</small>
+                    </div>
+                </div>
+
+                <form asp-action="Create" method="post" enctype="multipart/form-data" id="incidentForm">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Title" class="form-label">
+                            <i class="fa-solid fa-heading me-1 text-muted"></i>Incident Title
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Title" class="form-control form-control-lg"
+                               placeholder="e.g. Suspicious OTP received on official phone"
+                               maxlength="200" id="incidentTitle" />
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+                        <div class="form-text">Be specific and concise (max 200 characters)</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Description" class="form-label">
+                            <i class="fa-solid fa-align-left me-1 text-muted"></i>Incident Description
+                            <span class="text-danger">*</span>
+                        </label>
+                        <textarea asp-for="Description" class="form-control" rows="6"
+                                  placeholder="Describe the incident in detail: what happened, when, how, and any suspicious elements you noticed..."
+                                  maxlength="5000" id="incidentDescription"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                        <div class="d-flex justify-content-between form-text">
+                            <span>The more detail you provide, the more accurate the AI classification will be.</span>
+                            <span id="descCharCount">0/5000</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="evidenceFile" class="form-label">
+                            <i class="fa-solid fa-paperclip me-1 text-muted"></i>Evidence File
+                            <span class="text-muted fw-normal">(Optional)</span>
+                        </label>
+                        <input type="file" class="form-control" id="evidenceFile" name="evidenceFile"
+                               accept=".jpg,.jpeg,.png,.pdf" />
+                        <div class="form-text">
+                            <i class="fa-solid fa-info-circle me-1"></i>
+                            Accepted: JPG, PNG, PDF — Max 10 MB
+                        </div>
+                        <div id="filePreviewContainer" class="mt-2">
+                            <img id="filePreviewImage" src="" alt="Preview" class="img-fluid" style="display:none; max-height:200px; border-radius:8px;" />
+                            <div class="mt-1">
+                                <i class="fa-solid fa-file-circle-check text-success me-1"></i>
+                                <small id="filePreviewName" class="text-success fw-semibold"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info d-flex align-items-start gap-2 mb-4" role="alert">
+                        <i class="fa-solid fa-shield-halved mt-1 flex-shrink-0"></i>
+                        <div>
+                            <strong>What happens next?</strong><br />
+                            After submission, our AI will analyze your report and automatically determine:
+                            the <strong>incident type</strong>, <strong>risk level</strong>, and
+                            <strong>recommended mitigation steps</strong>.
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-warning btn-lg fw-bold px-5" id="submitBtn">
+                            <i class="fa-solid fa-paper-plane me-2"></i>Submit Incident Report
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                            <i class="fa-solid fa-xmark me-1"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="content-box">
+                <h5><i class="fa-solid fa-lightbulb me-2 text-warning"></i>Reporting Tips</h5>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Report immediately — don't delay</li>
+                    <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Include specific dates and times</li>
+                    <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Attach screenshots as evidence</li>
+                    <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Note any URLs or phone numbers</li>
+                    <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Mention systems/devices affected</li>
+                    <li><i class="fa-solid fa-check-circle text-success me-2"></i>Do not click suspicious links</li>
+                </ul>
+            </div>
+            <div class="content-box">
+                <h5><i class="fa-solid fa-phone-volume me-2 text-danger"></i>Emergency Contact</h5>
+                <p class="text-muted small mb-2">For critical incidents, contact your unit CERT immediately:</p>
+                <div class="alert alert-danger py-2 px-3 mb-0">
+                    <i class="fa-solid fa-shield-halved me-2"></i><strong>CERT Hotline:</strong> Report via this portal
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScripts");}
+    <script>
+        var descArea = document.getElementById('incidentDescription');
+        var charCount = document.getElementById('descCharCount');
+        if (descArea && charCount) {
+            function updateCount() {
+                charCount.textContent = descArea.value.length + '/5000';
+            }
+            descArea.addEventListener('input', updateCount);
+        }
+
+        var form = document.getElementById('incidentForm');
+        var submitBtn = document.getElementById('submitBtn');
+        if (form && submitBtn) {
+            form.addEventListener('submit', function () {
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing with AI...';
+                submitBtn.disabled = true;
+            });
+        }
+    </script>
+}

@@ -1,0 +1,139 @@
+@{
+    ViewData["Title"] = "Phishing Awareness";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a asp-controller="Awareness" asp-action="Index" class="text-warning">Awareness</a></li>
+                <li class="breadcrumb-item active text-white">Phishing</li>
+            </ol>
+        </nav>
+        <h1><i class="fa-solid fa-fish-fins me-2 text-warning"></i>Phishing Attack Awareness</h1>
+        <p>Recognizing and responding to phishing threats targeting defence personnel</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="content-box">
+                <h5><i class="fa-solid fa-circle-question me-2"></i>What is Phishing?</h5>
+                <p>Phishing is a cyberattack where adversaries disguise themselves as trusted entities to trick defence personnel into revealing sensitive information such as login credentials, OTPs, or classified data. In defence contexts, phishing is often the first step in advanced persistent threat (APT) campaigns.</p>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-list-ul me-2"></i>Common Phishing Tactics</h5>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-envelope text-danger me-2"></i>Email Phishing</h6>
+                            <p class="small text-muted mb-0">Fake emails impersonating commanding officers, CERT teams, or government agencies asking you to click links or share credentials.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-mobile-screen text-warning me-2"></i>SMS Phishing (Smishing)</h6>
+                            <p class="small text-muted mb-0">Text messages claiming to be from banks or official portals with urgent OTPs or login verification requests.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-phone text-info me-2"></i>Voice Phishing (Vishing)</h6>
+                            <p class="small text-muted mb-0">Phone calls from adversaries posing as IT support or senior officials requesting passwords or system access.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-crosshairs text-danger me-2"></i>Spear Phishing</h6>
+                            <p class="small text-muted mb-0">Highly targeted attacks crafted using your personal information gathered from social media or unit rosters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-triangle-exclamation me-2 text-warning"></i>Red Flag Warning Signs</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-xmark-circle text-danger mt-1 flex-shrink-0"></i>
+                        <span><strong>Urgent language</strong> — "Act immediately or your account will be locked"</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-xmark-circle text-danger mt-1 flex-shrink-0"></i>
+                        <span><strong>Suspicious sender address</strong> — Slight misspellings like @("admin@defenc3.in")</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-xmark-circle text-danger mt-1 flex-shrink-0"></i>
+                        <span><strong>Requests for OTP or passwords</strong> — No legitimate system asks for OTPs over email</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-xmark-circle text-danger mt-1 flex-shrink-0"></i>
+                        <span><strong>Unknown links</strong> — Hover before clicking; check if URL matches official domain</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-xmark-circle text-danger mt-1 flex-shrink-0"></i>
+                        <span><strong>Generic greetings</strong> — "Dear User" instead of your name</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-shield-check me-2 text-success"></i>Immediate Response Protocol</h5>
+                <ol class="mb-0">
+                    <li class="mb-2">Do NOT click any links or download attachments</li>
+                    <li class="mb-2">Do NOT share OTPs, passwords, or personal details</li>
+                    <li class="mb-2">Take a screenshot of the suspicious message</li>
+                    <li class="mb-2">Report immediately through SentinelAI portal</li>
+                    <li class="mb-2">Change your passwords if you suspect compromise</li>
+                    <li>Inform your unit CERT and commanding officer</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="content-box" style="border-left: 4px solid #ff6b35;">
+                <h5 class="text-danger"><i class="fa-solid fa-radiation me-2"></i>Threat Level</h5>
+                <div class="text-center py-3">
+                    <span class="badge badge-risk-high fs-5 px-4 py-2">HIGH RISK</span>
+                    <p class="text-muted small mt-2">Phishing is the #1 entry point for defence breaches</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-check-double me-2 text-success"></i>Quick Checklist</h5>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="chk1">
+                    <label class="form-check-label small" for="chk1">Verified sender's email domain</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="chk2">
+                    <label class="form-check-label small" for="chk2">Did not click suspicious links</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="chk3">
+                    <label class="form-check-label small" for="chk3">Did not share OTP or password</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="chk4">
+                    <label class="form-check-label small" for="chk4">Reported the incident</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="chk5">
+                    <label class="form-check-label small" for="chk5">Changed credentials</label>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <a asp-controller="Complaints" asp-action="Create" class="btn btn-warning fw-bold">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>Report Phishing
+                </a>
+                <a asp-controller="Awareness" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>All Topics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

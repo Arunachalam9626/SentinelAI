@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-user-shield fa-3x text-warning mb-3"></i>
+                <h2 class="fw-bold text-navy">Create Account</h2>
+                <p class="text-muted">Register to access the Defence Cyber Safety Portal</p>
+            </div>
+
+            <div class="form-card">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fa-solid fa-circle-xmark me-2"></i>
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <div>@error.ErrorMessage</div>
+                        }
+                    </div>
+                }
+
+                <form method="post" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" id="registerForm">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="regEmail" class="form-label">
+                            <i class="fa-solid fa-envelope me-1 text-muted"></i>Email Address
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control form-control-lg" id="regEmail"
+                               name="email" placeholder="your.name@sentinel.mil"
+                               autocomplete="username" required />
+                        <div class="form-text">Use your official defence email address</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="regPassword" class="form-label">
+                            <i class="fa-solid fa-lock me-1 text-muted"></i>Password
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="password" class="form-control form-control-lg" id="regPassword"
+                                   name="password" placeholder="Minimum 6 characters"
+                                   autocomplete="new-password" required id="regPasswordField" />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleRegPwd">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-text">Must contain uppercase, lowercase, digit, and special character</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="confirmPassword" class="form-label">
+                            <i class="fa-solid fa-lock-open me-1 text-muted"></i>Confirm Password
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" class="form-control form-control-lg" id="confirmPassword"
+                               name="confirmPassword" placeholder="Re-enter your password"
+                               autocomplete="new-password" required />
+                    </div>
+
+                    <div class="alert alert-secondary py-2 small mb-3">
+                        <i class="fa-solid fa-shield-halved me-2 text-success"></i>
+                        Your account will be secured with defence-grade Identity protection.
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-warning btn-lg fw-bold" id="registerBtn">
+                            <i class="fa-solid fa-user-plus me-2"></i>Create Secure Account
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="text-center mt-3">
+                <p class="text-muted small mb-1">Already registered?</p>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-right-to-bracket me-1"></i>Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var toggleBtn = document.getElementById('toggleRegPwd');
+        var pwdInput = document.getElementById('regPassword');
+        if (toggleBtn && pwdInput) {
+            toggleBtn.addEventListener('click', function () {
+                var type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                pwdInput.setAttribute('type', type);
+                var icon = toggleBtn.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        }
+        var form = document.getElementById('registerForm');
+        var registerBtn = document.getElementById('registerBtn');
+        if (form && registerBtn) {
+            form.addEventListener('submit', function () {
+                registerBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating Account...';
+                registerBtn.disabled = true;
+            });
+        }
+    </script>
+}

@@ -1,0 +1,174 @@
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-10">
+                <div class="hero-badge mb-4">
+                    <i class="fa-solid fa-shield-halved me-2"></i>AI-POWERED CYBER DEFENCE
+                </div>
+                <h1 class="hero-title">SentinelAI Defence Cyber<br /><span class="text-warning">Incident & Safety Portal</span></h1>
+                <p class="hero-subtitle">
+                    Advanced AI-powered threat detection, incident reporting, and cyber awareness
+                    for defence personnel. Stay protected. Stay vigilant.
+                </p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center mt-4">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Complaints" asp-action="Create" class="btn btn-warning btn-lg fw-bold px-5">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i>Report Incident
+                        </a>
+                        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-light btn-lg px-5">
+                            <i class="fa-solid fa-gauge me-2"></i>My Dashboard
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-warning btn-lg fw-bold px-5">
+                            <i class="fa-solid fa-user-plus me-2"></i>Get Started
+                        </a>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg px-5">
+                            <i class="fa-solid fa-right-to-bracket me-2"></i>Login
+                        </a>
+                    }
+                </div>
+                <div class="hero-stats mt-5">
+                    <div class="row justify-content-center g-4">
+                        <div class="col-4 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-number">AI</div>
+                                <div class="stat-label">Powered</div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Monitoring</div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-3">
+                            <div class="stat-box">
+                                <div class="stat-number">CERT</div>
+                                <div class="stat-label">Integration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="features-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Platform Capabilities</h2>
+            <p class="section-subtitle">Comprehensive cyber incident management for defence operations</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-primary-subtle">
+                        <i class="fa-solid fa-brain fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="feature-title">AI Detection</h5>
+                    <p class="feature-text">Gemini AI automatically classifies incident type and risk level in seconds, providing immediate threat assessment.</p>
+                    <a asp-controller="Awareness" asp-action="Index" class="feature-link">
+                        Learn More <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-warning-subtle">
+                        <i class="fa-solid fa-triangle-exclamation fa-2x text-warning"></i>
+                    </div>
+                    <h5 class="feature-title">Incident Reporting</h5>
+                    <p class="feature-text">Securely report cyber incidents with file evidence uploads. Get AI-powered mitigation steps instantly.</p>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Complaints" asp-action="Create" class="feature-link">
+                            Report Now <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="feature-link">
+                            Login to Report <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-success-subtle">
+                        <i class="fa-solid fa-gauge fa-2x text-success"></i>
+                    </div>
+                    <h5 class="feature-title">CERT Dashboard</h5>
+                    <p class="feature-text">Real-time dashboard for CERT teams. Monitor all incidents, update statuses, and track resolution progress.</p>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Dashboard" asp-action="Index" class="feature-link">
+                            View Dashboard <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="feature-link">
+                            Login to Access <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-danger-subtle">
+                        <i class="fa-solid fa-book-open fa-2x text-danger"></i>
+                    </div>
+                    <h5 class="feature-title">Cyber Awareness</h5>
+                    <p class="feature-text">Defence-specific cyber awareness training on phishing, malware, social engineering, and OPSEC best practices.</p>
+                    <a asp-controller="Awareness" asp-action="Index" class="feature-link">
+                        Start Learning <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Threat Types Section -->
+<section class="threats-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title text-white">Threat Landscape</h2>
+            <p class="section-subtitle text-light opacity-75">Know the threats that target defence infrastructure</p>
+        </div>
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <div class="threat-pill">
+                    <i class="fa-solid fa-fish-fins text-warning me-2"></i>Phishing
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="threat-pill">
+                    <i class="fa-solid fa-bug text-danger me-2"></i>Malware
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="threat-pill">
+                    <i class="fa-solid fa-user-secret text-info me-2"></i>Espionage
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="threat-pill">
+                    <i class="fa-solid fa-people-arrows text-success me-2"></i>Social Engineering
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

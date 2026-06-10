@@ -1,0 +1,183 @@
+@{
+    ViewData["Title"] = "Defence OPSEC";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a asp-controller="Awareness" asp-action="Index" class="text-warning">Awareness</a></li>
+                <li class="breadcrumb-item active text-white">Defence OPSEC</li>
+            </ol>
+        </nav>
+        <h1><i class="fa-solid fa-lock me-2 text-success"></i>Defence Operational Security (OPSEC)</h1>
+        <p>Protecting classified information and maintaining mission security in cyberspace</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="content-box">
+                <h5><i class="fa-solid fa-circle-question me-2"></i>What is OPSEC?</h5>
+                <p>Operational Security (OPSEC) is a systematic process that identifies critical information and analyzes friendly actions to determine which information is detectable by adversaries. In the cyber domain, OPSEC means protecting digital footprints, communications, and information systems from intelligence collection by hostile actors.</p>
+                <div class="alert alert-success mb-0">
+                    <i class="fa-solid fa-shield-halved me-2"></i>
+                    <strong>OPSEC Principle:</strong> If information is valuable to you, it is valuable to your adversary.
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-5 me-2 text-warning"></i>The 5-Step OPSEC Process</h5>
+                <div class="row g-3">
+                    @{
+                        var steps = new[]
+                        {
+                            ("1", "Identify Critical Information", "Determine what information, if obtained by adversaries, could harm operations or personnel.", "fa-magnifying-glass", "bg-primary-subtle", "text-primary"),
+                            ("2", "Analyze Threats", "Identify who the adversaries are and what they want. Understand their intelligence collection capabilities.", "fa-user-secret", "bg-danger-subtle", "text-danger"),
+                            ("3", "Analyze Vulnerabilities", "Examine your operations from the adversary's perspective to find gaps they could exploit.", "fa-shield-halved", "bg-warning-subtle", "text-warning"),
+                            ("4", "Assess Risk", "Determine the impact if vulnerabilities are exploited and prioritize countermeasures.", "fa-chart-bar", "bg-info-subtle", "text-info"),
+                            ("5", "Apply Countermeasures", "Implement measures to eliminate vulnerabilities or reduce risk to an acceptable level.", "fa-gears", "bg-success-subtle", "text-success")
+                        };
+                    }
+                    @foreach (var (num, title, desc, icon, bg, color) in steps)
+                    {
+                        <div class="col-12">
+                            <div class="d-flex gap-3 p-3 border rounded-3">
+                                <div class="@bg rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px;">
+                                    <i class="fa-solid @icon @color"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Step @num: @title</h6>
+                                    <p class="text-muted small mb-0">@desc</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-laptop me-2 text-primary"></i>Cyber OPSEC Best Practices</h5>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-key text-warning me-2"></i>Password Security</h6>
+                            <ul class="small text-muted mb-0 ps-3">
+                                <li>Use unique passwords for each system</li>
+                                <li>Minimum 12 characters with complexity</li>
+                                <li>Enable MFA on all accounts</li>
+                                <li>Use an approved password manager</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-wifi text-danger me-2"></i>Network Discipline</h6>
+                            <ul class="small text-muted mb-0 ps-3">
+                                <li>Never use public Wi-Fi for official work</li>
+                                <li>Use VPN on approved networks only</li>
+                                <li>Disable Bluetooth in sensitive areas</li>
+                                <li>Report rogue access points</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-brands fa-facebook text-info me-2"></i>Social Media OPSEC</h6>
+                            <ul class="small text-muted mb-0 ps-3">
+                                <li>Never post unit locations or movements</li>
+                                <li>Don't share deployment information</li>
+                                <li>Disable geotagging on photos</li>
+                                <li>Review privacy settings regularly</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded-3 h-100">
+                            <h6 class="fw-bold"><i class="fa-solid fa-envelope text-success me-2"></i>Communication Security</h6>
+                            <ul class="small text-muted mb-0 ps-3">
+                                <li>Use encrypted communication channels</li>
+                                <li>Never discuss classified on personal devices</li>
+                                <li>Clear screen when leaving workstation</li>
+                                <li>Lock devices when unattended</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Critical OPSEC Violations to Avoid</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex gap-2 align-items-start">
+                        <i class="fa-solid fa-ban text-danger mt-1"></i>
+                        <span>Posting selfies in uniform at sensitive locations</span>
+                    </li>
+                    <li class="list-group-item d-flex gap-2 align-items-start">
+                        <i class="fa-solid fa-ban text-danger mt-1"></i>
+                        <span>Discussing classified matters on personal mobile phones</span>
+                    </li>
+                    <li class="list-group-item d-flex gap-2 align-items-start">
+                        <i class="fa-solid fa-ban text-danger mt-1"></i>
+                        <span>Using personal email for official communications</span>
+                    </li>
+                    <li class="list-group-item d-flex gap-2 align-items-start">
+                        <i class="fa-solid fa-ban text-danger mt-1"></i>
+                        <span>Leaving classified documents visible on screen in public</span>
+                    </li>
+                    <li class="list-group-item d-flex gap-2 align-items-start">
+                        <i class="fa-solid fa-ban text-danger mt-1"></i>
+                        <span>Sharing network passwords with unauthorized personnel</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="content-box" style="border-left: 4px solid #198754;">
+                <h5 class="text-success"><i class="fa-solid fa-radiation me-2"></i>Threat Level</h5>
+                <div class="text-center py-3">
+                    <span class="badge badge-risk-critical fs-5 px-4 py-2">CRITICAL</span>
+                    <p class="text-muted small mt-2">OPSEC failures can compromise national security</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-clipboard-check me-2 text-success"></i>Daily OPSEC Checklist</h5>
+                @{
+                    var checks = new[] {
+                        "Locked workstation when away",
+                        "No classified docs left visible",
+                        "Personal device not on official network",
+                        "Social media reviewed for violations",
+                        "Report submitted if any concern",
+                        "Passwords not shared with anyone"
+                    };
+                }
+                @foreach (var (check, idx) in checks.Select((c, i) => (c, i)))
+                {
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="opchk@idx">
+                        <label class="form-check-label small" for="opchk@idx">@check</label>
+                    </div>
+                }
+            </div>
+
+            <div class="alert alert-danger">
+                <i class="fa-solid fa-phone-volume me-2"></i>
+                <strong>OPSEC Hotline:</strong> Report via SentinelAI portal immediately if you suspect an OPSEC breach.
+            </div>
+
+            <div class="d-grid gap-2">
+                <a asp-controller="Complaints" asp-action="Create" class="btn btn-success fw-bold">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>Report OPSEC Breach
+                </a>
+                <a asp-controller="Awareness" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>All Topics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

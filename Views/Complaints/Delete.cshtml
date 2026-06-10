@@ -1,0 +1,63 @@
+@model SentinelAI.Models.Complaint
+@{
+    ViewData["Title"] = "Delete Incident";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fa-solid fa-trash me-2 text-danger"></i>Delete Incident Report</h1>
+        <p>This action cannot be undone</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="form-card border border-danger">
+                <div class="text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fa-solid fa-circle-exclamation fa-4x text-danger"></i>
+                    </div>
+                    <h3 class="text-danger">Confirm Deletion</h3>
+                    <p class="text-muted">Are you sure you want to permanently delete this incident report?</p>
+                </div>
+
+                <div class="alert alert-secondary mb-4">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Report ID:</dt>
+                        <dd class="col-sm-8"><code>#@Model.Id</code></dd>
+                        <dt class="col-sm-4 text-muted">Title:</dt>
+                        <dd class="col-sm-8 fw-semibold">@Model.Title</dd>
+                        <dt class="col-sm-4 text-muted">Type:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary">@Model.IncidentType</span></dd>
+                        <dt class="col-sm-4 text-muted">Risk Level:</dt>
+                        <dd class="col-sm-8">@Model.RiskLevel</dd>
+                        <dt class="col-sm-4 text-muted">Date:</dt>
+                        <dd class="col-sm-8 mb-0">@Model.CreatedDate.ToString("dd MMM yyyy")</dd>
+                    </dl>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.EvidencePath))
+                {
+                    <div class="alert alert-warning mb-4">
+                        <i class="fa-solid fa-paperclip me-2"></i>
+                        <strong>Note:</strong> The attached evidence file will also be permanently deleted.
+                    </div>
+                }
+
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg fw-bold">
+                            <i class="fa-solid fa-trash me-2"></i>Yes, Delete Permanently
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                            <i class="fa-solid fa-xmark me-1"></i>Cancel — Keep Report
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

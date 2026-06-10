@@ -1,0 +1,529 @@
+@{
+    ViewData["Title"] = "Cyber Assistant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow border-0" style="border-radius: 16px; overflow: hidden;">
+                <div class="card-header text-white py-4 text-center d-flex flex-column align-items-center" style="background: linear-gradient(135deg, #1a3a6b 0%, #0d1e3d 100%); border-bottom: none;">
+                    <div class="d-flex align-items-center gap-2 justify-content-center mb-1">
+                        <span style="font-size: 1.8rem;">🛡️</span>
+                        <h2 class="fw-bold mb-0 text-white" style="font-family: 'Outfit', sans-serif; letter-spacing: -0.5px;">SentinelAI Cyber Assistant</h2>
+                    </div>
+                    <p class="mb-2 text-white-50" style="font-size: 0.95rem;">Ask me anything about cyber safety</p>
+                    <div>
+                        <span class="powered-badge"><i class="fa-solid fa-bolt me-1"></i>Powered by Gemini AI</span>
+                    </div>
+                </div>
+                <div class="card-body bg-light p-4">
+                    <!-- Anti-forgery Token -->
+                    @Html.AntiForgeryToken()
+
+                    <!-- Chat Window -->
+                    <div id="chatWindow" class="chat-window mb-3">
+                        <!-- Messages and Suggestion Chips will be appended dynamically -->
+                    </div>
+
+                    <!-- Typing Indicator -->
+                    <div id="typingIndicator" class="bubble-wrapper-assistant mb-3" style="display: none;">
+                        <span class="avatar">🛡️</span>
+                        <div class="bubble-assistant">
+                            <div class="typing-indicator">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-row d-flex gap-2 align-items-end">
+                        <textarea id="userInput" class="form-control flex-grow-1" rows="1" placeholder="Type your query here..." style="border-radius: 8px; resize: none; max-height: 120px; font-family: 'Inter', sans-serif;"></textarea>
+                        <button id="sendBtn" class="send-btn d-flex align-items-center gap-2 fw-semibold">
+                            <i class="fa-solid fa-paper-plane"></i>Send
+                        </button>
+                    </div>
+
+                    <!-- Clear Chat Link -->
+                    <div class="d-flex justify-content-end mt-2">
+                        <button id="clearChat" class="btn btn-link p-0 text-decoration-none">
+                            <i class="fa-solid fa-trash-can me-1"></i>Clear Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .chat-window {
+        height: 450px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        padding: 1rem;
+        background: #ffffff;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+    
+    .bubble-user {
+        background: #1a3a6b;
+        color: #ffffff;
+        border-radius: 18px 18px 4px 18px;
+        padding: 10px 16px;
+        max-width: 75%;
+        word-wrap: break-word;
+        box-shadow: 0 2px 4px rgba(26, 58, 107, 0.15);
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+    
+    .bubble-assistant {
+        background: #f0f4f8;
+        color: #212529;
+        border-radius: 18px 18px 18px 4px;
+        padding: 10px 16px;
+        max-width: 75%;
+        word-wrap: break-word;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .bubble-error {
+        background: #fdf2f2;
+        color: #721c24;
+        border: 1px solid #dc3545;
+        border-radius: 18px 18px 18px 4px;
+        padding: 10px 16px;
+        max-width: 75%;
+        word-wrap: break-word;
+        box-shadow: 0 2px 4px rgba(220, 53, 69, 0.1);
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+    
+    .bubble-wrapper-user {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .bubble-wrapper-assistant {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .avatar {
+        font-size: 1.4rem;
+        user-select: none;
+    }
+    
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+    }
+
+    .typing-indicator .dot {
+        width: 8px;
+        height: 8px;
+        background-color: #6c757d;
+        border-radius: 50%;
+        display: inline-block;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .typing-indicator .dot:nth-child(1) {
+        animation-delay: 0ms;
+    }
+
+    .typing-indicator .dot:nth-child(2) {
+        animation-delay: 150ms;
+    }
+
+    .typing-indicator .dot:nth-child(3) {
+        animation-delay: 300ms;
+    }
+
+    @@keyframes bounce {
+        0%, 80%, 100% {
+            transform: scale(0);
+        }
+        40% {
+            transform: scale(1.0);
+        }
+    }
+    
+    .suggestion-chip {
+        cursor: pointer;
+        border: 1px solid #1a3a6b;
+        color: #1a3a6b;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.82rem;
+        margin: 3px;
+        display: inline-block;
+        transition: all 0.2s;
+        font-weight: 500;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .suggestion-chip:hover {
+        background: #1a3a6b;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(26, 58, 107, 0.2);
+    }
+    
+    .send-btn {
+        background: #1a3a6b;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 24px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .send-btn:hover:not(:disabled) {
+        background: #11274c;
+        box-shadow: 0 4px 8px rgba(26, 58, 107, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    .send-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    #clearChat {
+        color: #6c757d;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+    }
+
+    #clearChat:hover {
+        color: #dc3545;
+    }
+    
+    .powered-badge {
+        font-size: 0.75rem;
+        background: #e8f0fe;
+        color: #1a3a6b;
+        border-radius: 12px;
+        padding: 3px 10px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(26, 58, 107, 0.05);
+    }
+
+    .list-item {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .bubble-wrapper-user, .bubble-wrapper-assistant, .chips-wrapper-container {
+        animation: fadeInUp 0.3s ease-out forwards;
+    }
+
+    .chat-window::-webkit-scrollbar {
+        width: 6px;
+    }
+    .chat-window::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .chat-window::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+    }
+    .chat-window::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatWindow = document.getElementById('chatWindow');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearChatBtn = document.getElementById('clearChat');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        let conversationHistory = [];
+
+        const suggestionChips = [
+            "Is this message phishing?",
+            "What to do after OTP fraud?",
+            "How to secure my WhatsApp?",
+            "Someone asked for my Aadhaar number",
+            "How to report a cyber crime?"
+        ];
+
+        // Focus input on load
+        userInput.focus();
+
+        // Initial setup
+        resetChat();
+
+        // Auto-expand textarea
+        userInput.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Enter key press triggers click
+        userInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        // Click handler for send
+        sendBtn.addEventListener('click', async function () {
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+
+            // 1. Append user message
+            appendUserMessage(userMessage);
+
+            // Clear input and reset height
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // Disable UI
+            setSendingState(true);
+
+            // 2. Show typing indicator
+            showTypingIndicator();
+
+            // 3. Scroll to bottom
+            scrollToBottom();
+
+            try {
+                // 4. POST request
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                const response = await fetch('/CyberAssistant/Chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify({
+                        history: conversationHistory,
+                        message: userMessage
+                    })
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+
+                // Hide indicator
+                hideTypingIndicator();
+
+                if (data.isError) {
+                    appendErrorBubble(data.reply);
+                } else {
+                    // 5. Append response
+                    appendAssistantMessage(data.reply);
+                    // 6. Push history
+                    conversationHistory.push({ role: 'user', content: userMessage });
+                    conversationHistory.push({ role: 'model', content: data.reply });
+                }
+
+            } catch (err) {
+                hideTypingIndicator();
+                // 7. Append error bubble
+                appendErrorBubble("Service temporarily unavailable. Please try again.");
+            } finally {
+                setSendingState(false);
+                scrollToBottom();
+            }
+        });
+
+        // Clear Chat Action
+        clearChatBtn.addEventListener('click', function () {
+            resetChat();
+        });
+
+        function resetChat() {
+            chatWindow.innerHTML = '';
+            conversationHistory = [];
+            showWelcomeMessage();
+            userInput.value = '';
+            userInput.style.height = 'auto';
+            userInput.focus();
+        }
+
+        function showWelcomeMessage() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bubble-wrapper-assistant';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble-assistant';
+            bubble.innerHTML = `
+                <p class="mb-2">👋 Hello! I'm your SentinelAI Cyber Assistant, powered by Gemini AI.</p>
+                <p class="mb-2">I can help you with:</p>
+                <ul class="mb-2 ps-3" style="margin-bottom: 0;">
+                    <li>Identifying phishing and scam messages</li>
+                    <li>Steps to take after cyber fraud</li>
+                    <li>Securing your accounts and devices</li>
+                    <li>Reporting cyber incidents</li>
+                </ul>
+                <p class="mb-0">Try one of the quick questions below, or type your own:</p>
+            `;
+            
+            wrapper.innerHTML = `<span class="avatar">🛡️</span>`;
+            wrapper.appendChild(bubble);
+            chatWindow.appendChild(wrapper);
+            
+            // Suggestion chips container
+            const chipsWrapper = document.createElement('div');
+            chipsWrapper.className = 'chips-wrapper-container ms-5 mb-3';
+            
+            suggestionChips.forEach(chipText => {
+                const chip = document.createElement('div');
+                chip.className = 'suggestion-chip';
+                chip.textContent = chipText;
+                chip.addEventListener('click', function() {
+                    userInput.value = chipText;
+                    userInput.focus();
+                    // trigger auto expand
+                    userInput.style.height = 'auto';
+                    userInput.style.height = (userInput.scrollHeight) + 'px';
+                });
+                chipsWrapper.appendChild(chip);
+            });
+            
+            chatWindow.appendChild(chipsWrapper);
+            scrollToBottom();
+        }
+
+        function appendUserMessage(message) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bubble-wrapper-user';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble-user';
+            bubble.textContent = message;
+
+            const avatar = document.createElement('span');
+            avatar.className = 'avatar';
+            avatar.textContent = '👤';
+
+            wrapper.appendChild(bubble);
+            wrapper.appendChild(avatar);
+            chatWindow.appendChild(wrapper);
+        }
+
+        function appendAssistantMessage(message) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bubble-wrapper-assistant';
+            
+            const avatar = document.createElement('span');
+            avatar.className = 'avatar';
+            avatar.textContent = '🛡️';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble-assistant';
+            bubble.innerHTML = formatMarkdown(message);
+
+            wrapper.appendChild(avatar);
+            wrapper.appendChild(bubble);
+            chatWindow.appendChild(wrapper);
+        }
+
+        function appendErrorBubble(errorMessage) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bubble-wrapper-assistant';
+            
+            const avatar = document.createElement('span');
+            avatar.className = 'avatar';
+            avatar.textContent = '🛡️';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble-error';
+            bubble.textContent = errorMessage;
+
+            wrapper.appendChild(avatar);
+            wrapper.appendChild(bubble);
+            chatWindow.appendChild(wrapper);
+        }
+
+        function setSendingState(sending) {
+            sendBtn.disabled = sending;
+            userInput.disabled = sending;
+            if (!sending) {
+                userInput.focus();
+            }
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'flex';
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function scrollToBottom() {
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatMarkdown(text) {
+            let escaped = escapeHtml(text);
+            
+            // **bold** to <strong>bold</strong>
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // list items starting with - or * to bullets
+            escaped = escaped.replace(/(?:^|\n)[-*]\s+(.+)/g, '<div class="list-item">• $1</div>');
+            
+            // numbered lists like 1. to list-item divs
+            escaped = escaped.replace(/(?:^|\n)(\d+)\.\s+(.+)/g, '<div class="list-item">$1. $2</div>');
+
+            // Convert remaining newlines to <br>
+            escaped = escaped.replace(/\n/g, '<br>');
+            
+            return escaped;
+        }
+    });
+</script>

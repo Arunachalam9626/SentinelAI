@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fa-solid fa-shield-halved me-2 text-warning"></i>Privacy Policy</h1>
+        <p>SentinelAI Defence Cyber Incident Portal — Data Protection Notice</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="content-box mb-4">
+                <h5><i class="fa-solid fa-lock me-2"></i>Data Security</h5>
+                <p>All incident reports submitted through SentinelAI are encrypted at rest and in transit. Access is restricted to authorized defence personnel and CERT administrators only.</p>
+            </div>
+            <div class="content-box mb-4">
+                <h5><i class="fa-solid fa-database me-2"></i>Data Retention</h5>
+                <p>Incident data is retained in accordance with defence information management policies. Users may delete their own reports at any time through the portal.</p>
+            </div>
+            <div class="content-box">
+                <h5><i class="fa-solid fa-file-shield me-2"></i>Your Rights</h5>
+                <p>Registered users have the right to access, correct, and delete their incident data. Contact your unit CERT officer for requests related to data held by administrators.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary mt-2">
+                    <i class="fa-solid fa-arrow-left me-1"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

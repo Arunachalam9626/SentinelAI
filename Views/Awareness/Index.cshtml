@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "Cyber Awareness";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fa-solid fa-book-open me-2 text-warning"></i>Cyber Awareness Centre</h1>
+        <p>Defence-specific cybersecurity training and threat awareness resources</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="text-center mb-5">
+        <p class="lead text-muted">
+            Knowledge is your first line of defence. Learn to identify and respond to the most common
+            cyber threats facing defence personnel.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="awareness-card" style="border-top-color: #ff6b35;">
+                <div class="awareness-icon bg-warning-subtle">
+                    <i class="fa-solid fa-fish-fins fa-2x text-warning"></i>
+                </div>
+                <h5 class="fw-bold text-navy">Phishing Attacks</h5>
+                <p class="text-muted small">
+                    Identify deceptive emails, SMS, and calls that try to steal your credentials or sensitive military information.
+                </p>
+                <a asp-action="Phishing" class="btn btn-outline-warning w-100 mt-2">
+                    <i class="fa-solid fa-arrow-right me-1"></i>Learn More
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="awareness-card" style="border-top-color: #dc3545;">
+                <div class="awareness-icon bg-danger-subtle">
+                    <i class="fa-solid fa-bug fa-2x text-danger"></i>
+                </div>
+                <h5 class="fw-bold text-navy">Malware & Ransomware</h5>
+                <p class="text-muted small">
+                    Understand how malicious software infiltrates defence systems and how to prevent, detect, and respond.
+                </p>
+                <a asp-action="Malware" class="btn btn-outline-danger w-100 mt-2">
+                    <i class="fa-solid fa-arrow-right me-1"></i>Learn More
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="awareness-card" style="border-top-color: #0d6efd;">
+                <div class="awareness-icon bg-primary-subtle">
+                    <i class="fa-solid fa-people-arrows fa-2x text-primary"></i>
+                </div>
+                <h5 class="fw-bold text-navy">Social Engineering</h5>
+                <p class="text-muted small">
+                    Recognize manipulation tactics used by adversaries to exploit human psychology and gain unauthorized access.
+                </p>
+                <a asp-action="SocialEngineering" class="btn btn-outline-primary w-100 mt-2">
+                    <i class="fa-solid fa-arrow-right me-1"></i>Learn More
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="awareness-card" style="border-top-color: #198754;">
+                <div class="awareness-icon bg-success-subtle">
+                    <i class="fa-solid fa-lock fa-2x text-success"></i>
+                </div>
+                <h5 class="fw-bold text-navy">Defence OPSEC</h5>
+                <p class="text-muted small">
+                    Master operational security principles to protect classified information and maintain mission integrity.
+                </p>
+                <a asp-action="DefenceOpsec" class="btn btn-outline-success w-100 mt-2">
+                    <i class="fa-solid fa-arrow-right me-1"></i>Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 p-4 rounded-3 text-white" style="background: linear-gradient(135deg, #0a1628 0%, #1a3a6b 100%);">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h4 class="mb-2"><i class="fa-solid fa-shield-halved text-warning me-2"></i>Spot a Threat?</h4>
+                <p class="mb-0 opacity-75">Report cyber incidents immediately. Early reporting saves systems and lives.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Complaints" asp-action="Create" class="btn btn-warning fw-bold">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i>Report Incident
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-warning fw-bold">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i>Login to Report
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

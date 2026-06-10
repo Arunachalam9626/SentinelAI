@@ -1,0 +1,463 @@
+/* ═══════════════════════════════════════════════════════
+   SentinelAI - Defence Cyber Portal - Site Stylesheet
+   Dark Navy Theme with Gold Accents
+═══════════════════════════════════════════════════════ */
+
+/* ── CSS Variables ─────────────────────────────────── */
+:root {
+    --navy-dark: #0a1628;
+    --navy-mid: #1a3a6b;
+    --navy-light: #1e4080;
+    --gold: #FFD700;
+    --gold-hover: #FFC107;
+    --danger-red: #dc3545;
+    --high-orange: #ff6b35;
+    --medium-yellow: #ffc107;
+    --low-green: #28a745;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Global ─────────────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f6fb;
+    color: #1a2332;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.sentinel-navbar {
+    background-color: var(--navy-dark) !important;
+    border-bottom: 2px solid var(--gold);
+    padding: 0.75rem 0;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+}
+
+.brand-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.5rem;
+}
+
+.sentinel-navbar .nav-link {
+    color: rgba(255,255,255,0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem !important;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.sentinel-navbar .nav-link:hover {
+    color: var(--gold) !important;
+    background: rgba(255,215,0,0.08);
+}
+
+.sentinel-navbar .nav-link.active {
+    color: var(--gold) !important;
+    background: rgba(255,215,0,0.12);
+    font-weight: 600;
+}
+
+/* ── Footer ─────────────────────────────────────────── */
+.sentinel-footer {
+    background-color: var(--navy-dark);
+    border-top: 1px solid rgba(255,215,0,0.2);
+}
+
+/* ── Hero Section ───────────────────────────────────── */
+.hero-section {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 60%, #1a4a8a 100%);
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,215,0,0.05) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255,215,0,0.15);
+    border: 1px solid rgba(255,215,0,0.4);
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.stat-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    backdrop-filter: blur(4px);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ── Features Section ───────────────────────────────── */
+.features-section {
+    padding: 5rem 0;
+    background: #f4f6fb;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--navy-dark);
+}
+
+.section-subtitle {
+    color: #6b7a99;
+    font-size: 1.05rem;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-top: 4px solid var(--navy-mid);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+.feature-text {
+    color: #6b7a99;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.feature-link {
+    color: var(--navy-mid);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    margin-top: auto;
+}
+
+.feature-link:hover {
+    color: var(--gold-hover);
+}
+
+/* ── Threats Section ────────────────────────────────── */
+.threats-section {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+    padding: 4rem 0;
+}
+
+.threat-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    padding: 0.85rem 1.5rem;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.threat-pill:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ── Page Header ────────────────────────────────────── */
+.page-header {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+    padding: 2.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    color: #ffffff;
+    font-weight: 800;
+    margin: 0;
+}
+
+.page-header p {
+    color: rgba(255,255,255,0.7);
+    margin: 0.5rem 0 0;
+}
+
+/* ── Stat Cards ─────────────────────────────────────── */
+.stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.stat-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--navy-dark);
+    line-height: 1;
+}
+
+.stat-card-label {
+    font-size: 0.8rem;
+    color: #6b7a99;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ── Risk Level Borders ─────────────────────────────── */
+.risk-critical { border-left: 4px solid var(--danger-red) !important; }
+.risk-high { border-left: 4px solid var(--high-orange) !important; }
+.risk-medium { border-left: 4px solid var(--medium-yellow) !important; }
+.risk-low { border-left: 4px solid var(--low-green) !important; }
+
+/* ── Badge Overrides ────────────────────────────────── */
+.badge-risk-critical { background-color: var(--danger-red); color: #fff; }
+.badge-risk-high { background-color: var(--high-orange); color: #fff; }
+.badge-risk-medium { background-color: var(--medium-yellow); color: #000; }
+.badge-risk-low { background-color: var(--low-green); color: #fff; }
+
+.badge-status-pending { background-color: #6c757d; color: #fff; }
+.badge-status-investigating { background-color: #0d6efd; color: #fff; }
+.badge-status-resolved { background-color: #198754; color: #fff; }
+
+/* ── Complaint Card ─────────────────────────────────── */
+.complaint-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    border-left: 4px solid var(--navy-mid);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.complaint-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* ── Table Overrides ────────────────────────────────── */
+.table-sentinel {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+}
+
+.table-sentinel thead {
+    background: var(--navy-dark);
+    color: #ffffff;
+}
+
+.table-sentinel thead th {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 1rem;
+    border: none;
+}
+
+.table-sentinel tbody tr {
+    transition: background 0.15s;
+}
+
+.table-sentinel tbody tr:hover {
+    background: rgba(26, 58, 107, 0.05) !important;
+}
+
+/* ── Form Overrides ─────────────────────────────────── */
+.form-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--navy-dark);
+    font-size: 0.9rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--navy-mid);
+    box-shadow: 0 0 0 0.25rem rgba(26, 58, 107, 0.15);
+}
+
+/* ── Awareness Cards ────────────────────────────────── */
+.awareness-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+    border-top: 4px solid var(--navy-mid);
+    height: 100%;
+}
+
+.awareness-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.awareness-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+}
+
+/* ── Content Box ─────────────────────────────────────── */
+.content-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+}
+
+.content-box h5 {
+    color: var(--navy-dark);
+    font-weight: 700;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ── Upload Preview ─────────────────────────────────── */
+#filePreviewContainer {
+    display: none;
+    margin-top: 0.75rem;
+}
+
+#filePreviewContainer img {
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+/* ── Utilities ──────────────────────────────────────── */
+.text-navy { color: var(--navy-dark); }
+.bg-navy { background-color: var(--navy-dark); }
+.border-gold { border-color: var(--gold) !important; }
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+    .hero-section { padding: 3rem 0 2.5rem; }
+    .hero-title { font-size: 1.8rem; }
+    .features-section { padding: 3rem 0; }
+    .form-card { padding: 1.5rem; }
+    .stat-card { flex-direction: column; text-align: center; }
+}

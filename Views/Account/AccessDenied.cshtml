@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <i class="fa-solid fa-ban fa-5x text-danger mb-4"></i>
+            <h1 class="text-danger mb-3">Access Denied</h1>
+            <p class="lead text-muted mb-4">
+                You do not have permission to access this resource. This area requires elevated privileges.
+            </p>
+            <div class="alert alert-danger d-inline-block">
+                <i class="fa-solid fa-shield-halved me-2"></i>
+                Contact your system administrator if you believe this is an error.
+            </div>
+            <div class="mt-4 d-flex gap-3 justify-content-center flex-wrap">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-house me-1"></i>Return Home
+                </a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary btn-lg">
+                    <i class="fa-solid fa-right-to-bracket me-1"></i>Login with Different Account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

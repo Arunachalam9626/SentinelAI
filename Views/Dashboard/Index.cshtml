@@ -1,0 +1,161 @@
+@model SentinelAI.Models.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fa-solid fa-gauge me-2 text-warning"></i>My Dashboard</h1>
+        <p>Personal cyber incident monitoring overview — @User.Identity?.Name</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-card-icon bg-primary-subtle">
+                    <i class="fa-solid fa-file-shield fa-xl text-primary"></i>
+                </div>
+                <div>
+                    <div class="stat-card-number">@Model.TotalComplaints</div>
+                    <div class="stat-card-label">Total Reports</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-card-icon" style="background: rgba(255,107,53,0.12);">
+                    <i class="fa-solid fa-fire fa-xl" style="color: #ff6b35;"></i>
+                </div>
+                <div>
+                    <div class="stat-card-number" style="color:#ff6b35;">@Model.HighRiskCount</div>
+                    <div class="stat-card-label">High Risk</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-card-icon bg-danger-subtle">
+                    <i class="fa-solid fa-radiation fa-xl text-danger"></i>
+                </div>
+                <div>
+                    <div class="stat-card-number text-danger">@Model.CriticalCount</div>
+                    <div class="stat-card-label">Critical</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-card-icon bg-success-subtle">
+                    <i class="fa-solid fa-circle-check fa-xl text-success"></i>
+                </div>
+                <div>
+                    <div class="stat-card-number text-success">@Model.ResolvedCount</div>
+                    <div class="stat-card-label">Resolved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="stat-card">
+                <div class="stat-card-icon bg-warning-subtle">
+                    <i class="fa-solid fa-clock fa-xl text-warning"></i>
+                </div>
+                <div>
+                    <div class="stat-card-number text-warning">@Model.PendingCount</div>
+                    <div class="stat-card-label">Pending Review</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-grid gap-2">
+                <a asp-controller="Complaints" asp-action="Create" class="btn btn-warning fw-bold btn-lg">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>Report New Incident
+                </a>
+                <a asp-controller="Complaints" asp-action="Index" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-list me-2"></i>View All My Reports
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Complaints Table -->
+    <div class="content-box">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h5 class="mb-0"><i class="fa-solid fa-clock-rotate-left me-2"></i>Recent Incidents</h5>
+            <a asp-controller="Complaints" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                View All <i class="fa-solid fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        @if (!Model.RecentComplaints.Any())
+        {
+            <div class="text-center py-4 text-muted">
+                <i class="fa-solid fa-inbox fa-3x mb-3"></i>
+                <p>No incidents reported yet. Stay vigilant!</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 table-sentinel">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Risk Level</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.RecentComplaints)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@c.Title</td>
+                                <td><span class="badge bg-secondary">@c.IncidentType</span></td>
+                                <td>
+                                    @{
+                                        var rc = c.RiskLevel switch
+                                        {
+                                            "Critical" => "badge-risk-critical",
+                                            "High" => "badge-risk-high",
+                                            "Medium" => "badge-risk-medium",
+                                            _ => "badge-risk-low"
+                                        };
+                                    }
+                                    <span class="badge @rc">@c.RiskLevel</span>
+                                </td>
+                                <td>
+                                    @{
+                                        var sc = c.Status switch
+                                        {
+                                            "Pending" => "badge-status-pending",
+                                            "Investigating" => "badge-status-investigating",
+                                            _ => "badge-status-resolved"
+                                        };
+                                    }
+                                    <span class="badge @sc">@c.Status</span>
+                                </td>
+                                <td class="text-muted small">@c.CreatedDate.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    <a asp-controller="Complaints" asp-action="Details" asp-route-id="@c.Id"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

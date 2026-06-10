@@ -1,0 +1,169 @@
+@{
+    ViewData["Title"] = "Social Engineering Awareness";
+    Layout = "_Layout";
+}
+
+<div class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a asp-controller="Awareness" asp-action="Index" class="text-warning">Awareness</a></li>
+                <li class="breadcrumb-item active text-white">Social Engineering</li>
+            </ol>
+        </nav>
+        <h1><i class="fa-solid fa-people-arrows me-2 text-primary"></i>Social Engineering Awareness</h1>
+        <p>Understanding psychological manipulation tactics used by adversaries</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="content-box">
+                <h5><i class="fa-solid fa-circle-question me-2"></i>What is Social Engineering?</h5>
+                <p>Social engineering exploits human psychology rather than technical vulnerabilities. Adversaries manipulate defence personnel into revealing classified information, granting system access, or performing actions that compromise security. The human factor remains the weakest link in any security chain.</p>
+                <div class="alert alert-info mb-0">
+                    <i class="fa-solid fa-lightbulb me-2"></i>
+                    <strong>Key insight:</strong> No firewall can protect against a soldier who is manipulated into sharing credentials willingly.
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-masks-theater me-2"></i>Common Attack Techniques</h5>
+                <div class="accordion" id="seAccordion">
+                    <div class="accordion-item border mb-2 rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePretext">
+                                <i class="fa-solid fa-user-secret text-primary me-2"></i>Pretexting
+                            </button>
+                        </h2>
+                        <div id="collapsePretext" class="accordion-collapse collapse show" data-bs-parent="#seAccordion">
+                            <div class="accordion-body text-muted">
+                                Attacker creates a fabricated scenario (pretext) to extract information. Example: "I'm from IT security, we need your login to patch a critical vulnerability on your system."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border mb-2 rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBarier">
+                                <i class="fa-solid fa-door-open text-warning me-2"></i>Tailgating / Piggybacking
+                            </button>
+                        </h2>
+                        <div id="collapseBarier" class="accordion-collapse collapse" data-bs-parent="#seAccordion">
+                            <div class="accordion-body text-muted">
+                                Physical technique where unauthorized personnel follow authorized staff into secure areas. Always challenge unknown individuals in restricted zones.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border mb-2 rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQP">
+                                <i class="fa-solid fa-handshake text-success me-2"></i>Quid Pro Quo
+                            </button>
+                        </h2>
+                        <div id="collapseQP" class="accordion-collapse collapse" data-bs-parent="#seAccordion">
+                            <div class="accordion-body text-muted">
+                                Offering something in exchange for information. Example: "I'll give you a free software upgrade if you give me remote access to your machine."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBait">
+                                <i class="fa-solid fa-fish text-danger me-2"></i>Baiting
+                            </button>
+                        </h2>
+                        <div id="collapseBait" class="accordion-collapse collapse" data-bs-parent="#seAccordion">
+                            <div class="accordion-body text-muted">
+                                Leaving infected USB drives in parking lots or canteens. Curiosity drives personnel to plug them in, infecting defence systems.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-brain me-2 text-info"></i>Psychological Triggers Used by Attackers</h5>
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <div class="alert alert-warning py-2 mb-0">
+                            <i class="fa-solid fa-clock me-1"></i><strong>Urgency</strong> — "This must be done NOW"
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="alert alert-danger py-2 mb-0">
+                            <i class="fa-solid fa-medal me-1"></i><strong>Authority</strong> — "I'm calling from Command HQ"
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="alert alert-info py-2 mb-0">
+                            <i class="fa-solid fa-gift me-1"></i><strong>Scarcity</strong> — "This is a limited one-time offer"
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="alert alert-secondary py-2 mb-0">
+                            <i class="fa-solid fa-heart me-1"></i><strong>Sympathy</strong> — "I really need your help right now"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-shield-halved me-2 text-success"></i>Defence Protocols</h5>
+                <ol class="mb-0">
+                    <li class="mb-2"><strong>Verify identity</strong> — Always verify caller/visitor identity through official channels</li>
+                    <li class="mb-2"><strong>Question unusual requests</strong> — Legitimate systems never ask for passwords over phone</li>
+                    <li class="mb-2"><strong>Follow the "need to know" principle</strong> — Share information only with authorized personnel</li>
+                    <li class="mb-2"><strong>Challenge tailgaters</strong> — Politely challenge anyone following you into secure areas</li>
+                    <li class="mb-2"><strong>Report suspicious contacts</strong> — Immediately report unexpected requests for sensitive info</li>
+                    <li><strong>Conduct security awareness training</strong> — Regular training reduces human error</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="content-box" style="border-left: 4px solid #0d6efd;">
+                <h5 class="text-primary"><i class="fa-solid fa-radiation me-2"></i>Threat Level</h5>
+                <div class="text-center py-3">
+                    <span class="badge badge-risk-high fs-5 px-4 py-2">HIGH RISK</span>
+                    <p class="text-muted small mt-2">Human manipulation bypasses all technical controls</p>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h5><i class="fa-solid fa-exclamation-triangle me-2 text-warning"></i>Key Rules</h5>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fa-solid fa-circle-xmark text-danger mt-1 flex-shrink-0"></i>
+                        <span class="small">Never share passwords over phone</span>
+                    </li>
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fa-solid fa-circle-xmark text-danger mt-1 flex-shrink-0"></i>
+                        <span class="small">Never give system access to strangers</span>
+                    </li>
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fa-solid fa-circle-xmark text-danger mt-1 flex-shrink-0"></i>
+                        <span class="small">Never plug in unknown USB devices</span>
+                    </li>
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fa-solid fa-circle-check text-success mt-1 flex-shrink-0"></i>
+                        <span class="small">Always verify identity independently</span>
+                    </li>
+                    <li class="d-flex gap-2">
+                        <i class="fa-solid fa-circle-check text-success mt-1 flex-shrink-0"></i>
+                        <span class="small">Always report suspicious contacts</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-grid gap-2">
+                <a asp-controller="Complaints" asp-action="Create" class="btn btn-primary fw-bold">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>Report Incident
+                </a>
+                <a asp-controller="Awareness" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>All Topics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
