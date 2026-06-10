@@ -16,6 +16,8 @@
 - **Risk Assessment**: Instantly computes risk levels (*Low, Medium, High, Critical*) to flag severe incidents for immediate escalation.
 - **Dynamic Mitigation Engine**: Generates context-aware, actionable immediate steps for defence personnel (e.g., network isolation protocols, credential resets).
 - **Keyword Fallback Safety Net**: Implements local rule-based regex parsing to ensure the application remains functional even in offline mode or during API rate limits.
+- <img width="1191" height="877" alt="image" src="https://github.com/user-attachments/assets/53fcedbc-8f57-48e8-bd14-2ce12b2c3ebb" />
+
 
 ### 2. 🗺️ Threat Heat Map (Admin Restricted)
 - **Regional Threat Insights**: A visually premium dashboard displaying cybersecurity threat distribution across India.
